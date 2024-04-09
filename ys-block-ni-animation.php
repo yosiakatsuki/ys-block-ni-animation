@@ -4,7 +4,7 @@
  * Description:       ブロック単位で簡単なアニメーションを追加するプラグイン。ブロックの設定にアニメーションのオプションが追加されます。
  * Requires at least: 6.5
  * Requires PHP:      7.4
- * Version:           0.1.0
+ * Version:           0.2.0
  * Author:            yosiakatsuki
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -26,6 +26,7 @@ add_action(
 add_action(
 	'wp_enqueue_scripts',
 	function () {
+		// スクリプト.
 		$path = '/build/view.js';
 		wp_enqueue_script(
 			'ysbna-script',
@@ -34,6 +35,15 @@ add_action(
 			filemtime( plugin_dir_path( __FILE__ ) . $path ),
 			[ 'in_footer' => true ]
 		);
+		// スタイル.
+		$path = '/build/style-index.css';
+		wp_enqueue_style(
+			'ysbna-style',
+			plugins_url( $path, __FILE__ ),
+			[],
+			filemtime( plugin_dir_path( __FILE__ ) . $path )
+		);
+		wp_style_add_data( 'ysbna-style', 'path', plugin_dir_path( __FILE__ ) . $path );
 	}
 );
 add_filter(
