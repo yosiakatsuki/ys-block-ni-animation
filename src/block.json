@@ -1,13 +1,21 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "create-block/ys-block-ni-animation",
+	"name": "ysbna/ys-block-ni-animation",
 	"version": "0.1.0",
-	"title": "Ys Block Ni Animation",
+	"title": "ブロックにアニメーション",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "ブロックにアニメーション用のオプションを追加する",
 	"example": {},
+	"attributes": {
+		"ysbnaAnimationType": {
+			"type": "string"
+		},
+		"ysbnaAnimationDelay": {
+			"type": "string"
+		}
+	},
 	"supports": {
 		"html": false
 	},

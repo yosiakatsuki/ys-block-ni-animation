@@ -1,30 +1,59 @@
 <?php
 /**
- * Plugin Name:       Ys Block Ni Animation
- * Description:       Example block scaffolded with Create Block tool.
- * Requires at least: 6.1
- * Requires PHP:      7.0
+ * Plugin Name:       [YS]ブロックにアニメーションを追加するプラグイン
+ * Description:       ブロック単位で簡単なアニメーションを追加するプラグイン。ブロックの設定にアニメーションのオプションが追加されます。
+ * Requires at least: 6.5
+ * Requires PHP:      7.4
  * Version:           0.1.0
- * Author:            The WordPress Contributors
+ * Author:            yosiakatsuki
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       ys-block-ni-animation
  *
- * @package CreateBlock
+ * @package ys-block-ni-animation
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-/**
- * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
- * through the block editor in the corresponding context.
- *
- * @see https://developer.wordpress.org/reference/functions/register_block_type/
- */
-function create_block_ys_block_ni_animation_block_init() {
-	register_block_type( __DIR__ . '/build' );
-}
-add_action( 'init', 'create_block_ys_block_ni_animation_block_init' );
+add_action(
+	'init',
+	function () {
+		register_block_type( __DIR__ . '/build' );
+	}
+);
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		$path = '/build/view.js';
+		wp_enqueue_script(
+			'ysbna-script',
+			plugins_url( $path, __FILE__ ),
+			[],
+			filemtime( plugin_dir_path( __FILE__ ) . $path ),
+			[ 'in_footer' => true ]
+		);
+	}
+);
+add_filter(
+	'register_block_type_args',
+	function ( $args ) {
+		$attributes      = [];
+		$block_json_path = __DIR__ . '/build/block.json';
+		// block.jsonを取得.
+		if ( file_exists( $block_json_path ) ) {
+			$block_json = wp_json_file_decode( $block_json_path, [ 'associative' => true ] );
+			// 読み込めた？ & attributesある？.
+			if ( $block_json && is_array( $block_json ) && isset( $block_json['attributes'] ) ) {
+				$attributes = $block_json['attributes'];
+			}
+		}
+		// 設定のマージ.
+		if ( ! empty( $attributes ) ) {
+			$args['attributes'] = array_merge( $args['attributes'], $attributes );
+		}
+
+		return $args;
+	}
+);

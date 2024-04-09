@@ -1,12 +1,96 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+:root {
+	--ysbna--translate-x: 0;
+	--ysbna--translate-y: 20px;
+	--ysbna--animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+	--ysbna--animation-duration: 1s;
+	--ysbna--animation-delay: 0ms;
+	--ysbna--animation-name: ysbna-fadeIn;
+}
 
-.wp-block-create-block-ys-block-ni-animation {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+[class*="ysbna-animation-type"] {
+	opacity: 0;
+	animation-duration: var(--ysbna--animation-duration);
+	animation-timing-function: var(--ysbna--animation-timing-function);
+	animation-delay: var(--ysbna--animation-delay);
+	animation-fill-mode: both;
+
+	&.ysbna-do-animation {
+		animation-name: var(--ysbna--animation-name);
+	}
+}
+
+.ysbna-animation-type--fadeIn {
+	--ysbna--animation-name: ysbna-fadeIn;
+}
+
+.ysbna-animation-type--fadeInUp {
+	--ysbna--animation-name: ysbna-fadeInUp;
+}
+
+.ysbna-animation-type--fadeInDown {
+	--ysbna--translate-y: -20px;
+	--ysbna--animation-name: ysbna-fadeInDown;
+}
+.ysbna-animation-delay--100ms {
+	--ysbna--animation-delay: 100ms;
+}
+.ysbna-animation-delay--200ms {
+	--ysbna--animation-delay: 200ms;
+}
+.ysbna-animation-delay--300ms {
+	--ysbna--animation-delay: 300ms;
+}
+.ysbna-animation-delay--400ms {
+	--ysbna--animation-delay: 400ms;
+}
+.ysbna-animation-delay--500ms {
+	--ysbna--animation-delay: 500ms;
+}
+.ysbna-animation-delay--600ms {
+	--ysbna--animation-delay: 600ms;
+}
+.ysbna-animation-delay--700ms {
+	--ysbna--animation-delay: 700ms;
+}
+.ysbna-animation-delay--800ms {
+	--ysbna--animation-delay: 800ms;
+}
+.ysbna-animation-delay--900ms {
+	--ysbna--animation-delay: 900ms;
+}
+.ysbna-animation-delay--1000ms {
+	--ysbna--animation-delay: 1000ms;
+}
+
+
+
+@keyframes ysbna-fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes ysbna-fadeInUp {
+	0% {
+		opacity: 0;
+		translate: var(--ysbna--translate-x) var(--ysbna--translate-y);
+	}
+	100% {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+@keyframes ysbna-fadeInDown {
+	0% {
+		opacity: 0;
+		translate: var(--ysbna--translate-x) var(--ysbna--translate-y);
+	}
+	100% {
+		opacity: 1;
+		translate: 0 0;
+	}
 }
