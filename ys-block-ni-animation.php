@@ -4,7 +4,7 @@
  * Description:       ブロック単位で簡単なアニメーションを追加するプラグイン。ブロックの設定にアニメーションのオプションが追加されます。
  * Requires at least: 6.5
  * Requires PHP:      7.4
- * Version:           0.2.0
+ * Version:           0.3.0
  * Author:            yosiakatsuki
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,24 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
+}
+
+// ビルド済みのプラグインかチェック
+if ( ! file_exists( __DIR__ . '/build/block.json' ) ) {
+	add_action(
+		'admin_notices',
+		function () {
+			wp_admin_notice(
+				'「[YS]ブロックにアニメーションを追加するプラグイン」は正しくビルドされていないため機能が停止しています。<br>ソースファイルを取得した場合はビルドしてください。',
+				[
+					'type'        => 'error',
+					'dismissible' => true,
+				]
+			);
+		}
+	);
+
+	return;
 }
 
 add_action(
